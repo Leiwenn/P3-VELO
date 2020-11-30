@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!--[if IE]>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<![endif]-->
+		<!---bootstrap-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+		<!---mon style.css-->
+	<link rel="stylesheet" type="text/css" href="style/style.css">
+		<!--icones fontawesome-->
+	<script src="https://kit.fontawesome.com/f2c3a49501.js"></script>
+		<!---leaflet css-->
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+		<!---leaflet markercluster css-->
+	<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css">
+   		<!---mapbox-->
+	<script src='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.js'></script>
+	<link href='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />
+		<!-- Primary Meta Tags -->
+	<title>Vél 'O Nantes</title>
+	<meta name="title" content="Vél 'O Nantes">
+	<meta name="description" content="Vél'o est un site proposant des vélos à la location dans la ville de Nantes">
+		<!-- Open Graph / Facebook -->
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://p3velo.emeline-gouault.com/">
+	<meta property="og:title" content="Vél 'O Nantes">
+	<meta property="og:description" content="Vél'o est un site proposant des vélos à la location dans la ville de Nantes">
+	<meta property="og:image" content="img/logo.png">
+		<!-- Twitter -->
+	<meta property="twitter:card" content="summary_large_image">
+	<meta property="twitter:url" content="https://p3velo.emeline-gouault.com/">
+	<meta property="twitter:title" content="Vél 'O Nantes">
+	<meta property="twitter:description" content="Vél'o est un site proposant des vélos à la location dans la ville de Nantes">
+	<meta property="twitter:image" content="img/logo.png">
+		<!--Favicon-->
+	<link rel="shortcut icon" href="img/logo-resa.png" >
+</head>
+<body>
+	<div class="container-fluid">
+		<nav class="navbar fixed-top">
+			<a href="#" class=" navbar-brand"><img src="img/logo-resa.png" class="img-fluid" alt="logo coeur brillant" /></a>
+			<h1>Vél 'O Nantes</h1>
+			<div>
+				<a href="#" aria-label="lien vers Twitter"><i class="fab fa-twitter"></i></a>
+				<a href="#" aria-label="lien vers Facebook"><i class="fab fa-facebook-f"></i></a>
+			</div>
+		</nav>
+	
+		<div class="container">
+			<header>
+				<figure>
+					<img src="img/img5.jpg" class="img-fluid" alt="Vue aérienne de la ville de Nantes" />
+					<figcaption>
+						<div class="font">Bienvenue chez Vel 'O !</div>
+						suivez le guide ...
+					</figcaption>
+				</figure>
+
+				<figure>
+					<img src="img/img6.jpg" class="img-fluid" alt="Mains explorant une carte sur écran de smartphone" />
+					<figcaption>
+						<div class="font">Station</div>
+						Cherchez une station sur la carte,<br>cliquez pour en savoir plus.
+					</figcaption>
+				</figure>
+
+				<figure>
+					<img src="img/img7.jpg" class="img-fluid" alt="Vélos de location sur leur borne" />
+					<figcaption>
+						<div class="font">Réservation</div>
+						Complétez notre formulaire,<br>et signez.
+					</figcaption>
+				</figure>
+
+				<figure>
+					<img src="img/img9.jpg" class="img-fluid" alt="Vélos de location alignés" />
+					<figcaption>
+						<div class="font">C'est parti !</div>
+						Vous avez 20 minutes pour aller chercher<br>votre Vél'O à sa station.
+					</figcaption>
+				</figure>
+
+				<div id="commandes">
+					<button aria-label="image précédente" type="button" class="btn" id="prec"><i class="fas fa-chevron-left"></i></button>
+					<button aria-label="pause diaporama" type="button" class="btn" id="pause"><i class="far fa-pause-circle"></i></button>
+					<button aria-label="reprendre diaporama" type="button" class="btn" id="play"><i class="far fa-play-circle"></i></button>
+					<button aria-label="image suivante" type="button" class="btn" id="suiv"><i class="fas fa-chevron-right"></i></button>
+				</div>
+			</header>
+
+			<section class="partie_2 row m-0"><!--Partie englobant la carte, le formulaire et le canvas-->
+					
+				<div class="col-xs-12 col-lg-8 p-0">
+					<div id='maCarte'></div>
+				</div>
+
+				<form id="formulaireResa" class="col-xs-12 col-lg-4 p-0">
+
+					<fieldset class="font-weight-bold">
+						<h2>Détails de la station</h2>
+						<ul>
+							<li>
+								Adresse : <span id="adresse"></span>
+							</li>
+							<li>
+								Places disponibles : <span id="placesRestantes"></span>
+							</li>
+							<li>
+								Vélos disponibles : <span id="velosRestants"></span>
+							</li>
+								<!--verification des données saisies avec type=text, required et pattern-->
+							<li class="mt-4">
+								<label for="lastname">Nom* : 
+									<input type="text" required pattern="[A-Za-z]+" title="Ne doit contenir que des lettres" name="lastname" id="lastname" placeholder="Anquetil" onchange="enregistrerNom();">
+								</label>
+							</li>
+							<li>
+								<label for="prenom">Prénom* : 
+									<input type="text" required pattern="[A-Za-z]+" title="Ne doit contenir que des lettres" name="name" id="prenom" placeholder="Jacques" onchange="enregistrerPrenom();">
+								</label>
+							</li>
+							<li>
+								<label for="checkbox" class="labelDonnees">
+									<input type="checkbox" name="checkbox" id="checkbox"> 
+									J'accepte que les informations saisies soient exploitées dans le cadre de ma démarche de demande de location. *
+								</label>
+							</li>
+						</ul>
+					</fieldset>
+					
+						<!--bouton de soumission du formulaire-->
+					<input class="btn boutonReserver" type="button" value="Réserver" onclick="verifierDonnees();">
+
+						<!--Canvas-->
+					<div class="signature border border-secondary rounded">
+						<h3>Signature &#9759;</h3>
+						<canvas id="monCanvas" width="200" height="200">
+						<!--Désolé, votre navigateur ne prend pas en charge &lt;canvas&gt;.-->
+						</canvas>
+							<!--bouton confirmer réservation-->
+						<input class="mt-1 btn btn-success btn-block" id="reservation" type="button" value="J'ai signé !">
+					</div>
+
+				</form>
+			</section>
+
+			<section class="partie_3"><!--Partie contenant les informations de réservation et le décompte-->
+
+				<div class="infos-resa d-flex flex-column justify-content-center">
+					<h4 class="mb-3 mt-2">Informations de réservation</h4>
+					<div id="resa">
+						<p><span id="nom_station"></span> <span id="nom_utilisateur"></span> </p>
+						<p><span id="temps_restant"></span></p>
+							<!--Bouton annulation-->
+						<button class="mt-1 mb-2 btn btn-danger" type="reset" id="annuler" value="Annuler">Annuler</button>
+					</div>
+				</div>
+			</section>
+
+		<!--fermeture div container-->	
+		</div>
+
+		<footer class="jumbotron d-flex flex-wrap bg-dark text-white">
+
+			<div class="col-xs-12 col-md-6">
+				<h5><img src="img/logo-resa.png" class="img-fluid logo-resa rounded" alt="logo coeur brillant" /> <span class="souligne">Cont</span>act</h5>
+				<p>Tel assistance : 01 02 03 04 05</p>
+				<p>Mail : <a href="mailto:velo@fictive.fr">velo@fictive.fr</a></p>
+				<p class="police">© Vél 'O</p>
+			</div>
+
+			<div class="col-xs-12 col-md-6">
+				<h6><img src="img/logo-resa.png" class="img-fluid logo-resa rounded" alt="logo coeur brillant" /> <span class="souligne">Info</span>rmations</h6>
+				<p><a href="#">Mentions légales</a></p>
+				<p><a href="#">* Notice</a> gestion des données personnelles</p>
+				<p>Images de <a href="https://pixabay.com/fr/?utm_source=link-attribution&amp;utm_medium=referral&amp;utm_campaign=image&amp;utm_content=2174805">Pixabay</a></p>
+			</div>
+			<div class="fictif">
+				<p>[ Cette page est un site fictif réalisé dans le cadre d'un projet étudiant: <a href="https://openclassrooms.com/fr/">Openclassrooms.com</a> ]</p>
+			</div>
+		</footer>
+	<!--fermeture div container-fluid-->
+	</div>
+
+	<!--________________________________JAVASCRIPT_________________________________________________________________-->
+		<!--leaflet JS-->
+	<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>
+		<!--leaflet markercluster JS-->
+	<script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+		<!---mes fichiers.js-->
+	<script src="js/carrousel.js"></script>
+	<script src="js/carte.js"></script>
+	<script src="js/formulaire.js"></script>
+	<script src="js/canvas.js"></script>
+	<script src="js/reservation.js"></script>
+</body>
+</html>
